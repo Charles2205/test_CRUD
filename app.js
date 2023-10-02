@@ -3,6 +3,7 @@ require('dotenv').config()
 const app = express()
 const port = 3000
 const ejs = require('ejs')
+const dbConnect = require('./dbConnect')
 
 app.set('view engine','ejs')
 app.set('views',__dirname+'/views')
@@ -13,7 +14,7 @@ app.post('/register',(req,res)=>{
 
 })
 const startServer=async()=>{
-    await sequel = dbConnect.authenicate()
+    await dbConnect.authenticate()
     try {
     app.listen(port, () => console.log(`Example app listening on port http://localhost:${port} !`))
 
