@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 const ejs = require('ejs')
 const dbConnect = require('./dbConnect')
+const dbModel = require('./users')
 
 app.set('view engine','ejs')
 app.set('views',__dirname+'/views')
