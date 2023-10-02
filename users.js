@@ -8,16 +8,16 @@ const users = dbConnect.define('users',{
     },
     first_name:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:true
     },
     last_name:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:true
     },
     age:{
-        type:DataTypes.INTEGER,
-        allowNull:false
+        type:DataTypes.STRING,
+        allowNull:true
     }
 })
-users.sync({alter:true})
+users.sync({force:true})
 module.exports= users

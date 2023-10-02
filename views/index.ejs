@@ -7,6 +7,7 @@
     <title>Home</title>
 </head>
 <body>
+    
     <div class="container mt-5">
         <table class="table">
             <thead>
@@ -44,7 +45,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="exampleInputPassword1">Age</label>
-                                <input type="text" class="form-control mt-2" id="exampleInputPassword1" placeholder="Age" name="age" aria-required="true">
+                                <input type="number" class="form-control mt-2" id="exampleInputAge" placeholder="Age" name="age" aria-required="true">
                               </div>
                             
                               <div class="modal-footer">
@@ -58,23 +59,46 @@
                 </div>
               </div>
               <!-- end modal -->
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td><div>
-                    <button class="btn btn-outline-success">Edit</button>
-                    <button class="btn btn-outline-danger">Delete</button>
-                </div></td>
-              </tr>
-            </tbody>
+              <% records.forEach((record)=>{ %>
+                
+                <tbody>
+                    <tr>
+                      <th scope="row"><%= record.id %></th>
+                      <td><%= record.first_name %></td>
+                      <td><%= record.last_name %></td>
+                      <td><%= record.age %></td>
+                      <td><div>
+                          <button class="btn btn-outline-success">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                      </div></td>
+                    </tr>
+                  </tbody>
+            
+            
+            <% }) %>
+            
+            
+            
           </table>
           <!-- Button trigger modal -->
 
     </div>
+    <script>
+      const firstName = document.querySelector('#exampleInputEmail1')
+      let firstNameValue = firstName.value
+      const lastName = document.querySelector('#exampleInputPassword1')
+      const age = document.querySelector('#exampleInputAge')
+      if (firstNameValue =""){
+        console.log('no value');
+      }
+      else{
+        console.log('value dey');
+      }
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script></body>
 </html>
+
+
