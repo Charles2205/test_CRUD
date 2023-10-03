@@ -5,10 +5,12 @@ const port = 3000
 const ejs = require('ejs')
 const dbConnect = require('./dbConnect')
 const dbModel = require('./users')
-app.use(express.urlencoded({extended:false}))
+
 app.use(express.static(__dirname+'/js'))
 app.set('view engine','ejs')
 app.set('views',__dirname+'/views')
+app.use(express.urlencoded({extended:false}))
+app.use(express.json())
 app.get('/',async(req,res)=>{
     const users = await dbModel.findAll()
     const records =users.map((v)=>{return v.dataValues})
@@ -17,14 +19,15 @@ app.get('/',async(req,res)=>{
 
 
 
-// app.get('/snackbar.min.js', (req, res) => {
-//     res.set('Content-Type', 'application/javascript');
-//     res.sendFile(__dirname + '/snackbar.min.js');
-//   });
+
 app.post('/register',async(req,res)=>{
-    const {first_name,last_name,age}= req.body
+    try {
+        const {first_name,last_name,age}= req.body
     await dbModel.create({first_name,last_name,age})
     res.redirect('/')
+    } catch (error) {
+        console.log(error);
+    }
 })
 const startServer=async()=>{
     await dbConnect.authenticate()

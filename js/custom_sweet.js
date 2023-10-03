@@ -1,14 +1,41 @@
-const btnSave = document.querySelector('#btnSave');
-btnSave.addEventListener('click',()=>{
-    const allInput =document.querySelectorAll('.inputvaildator');
-    allInput.forEach((input)=>{
+// access the button
+
+const btnSave = document.querySelector("#btnSave")
+
+btnSave.addEventListener ("click",async(e)=>{
+    e.preventDefault()
+    //    get all input tags
+    // change the document to an array to be able to use filter instead of forEach
+    let allInputs = document.querySelectorAll(".inputValidator")
+    allInputs = Array.from(allInputs)
+    const result = allInputs.filter((input)=>{
         if(input.value.length<1){
-            alert('Error')
+            showToast("error","field required")
+            return false
         }
+        return true 
     })
+   console.log(result);
+
+   if(result.length>2){
+    const first_name = document.querySelector("#first_name").value
+    const last_name = document.querySelector("#last_name").value
+    const age = document.querySelector("#age").value
+
+    const res = await axios.post("/register", {first_name,last_name,age}) .then(response => {
+      // Assuming a successful response from the server
+      window.location.href = '/'; // Redirect to the desired page
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+   }  
+  
 })
 
-function showToast(status,message){
+
+
+function showToast(status,msg){
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -23,6 +50,6 @@ function showToast(status,message){
       
       Toast.fire({
         icon: status,
-        title: message
-      })      
+        title: msg
+      })
 }
