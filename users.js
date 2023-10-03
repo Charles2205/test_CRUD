@@ -8,15 +8,15 @@ const users = dbConnect.define('users',{
     },
     first_name:{
         type:DataTypes.STRING,
-        allowNull:true
+        allowNull:false
     },
     last_name:{
         type:DataTypes.STRING,
-        allowNull:true
+        allowNull:false
     },
     age:{
         type:DataTypes.STRING,
-        allowNull:true
+        allowNull:false
     }
 })
 users.sync({force:true})

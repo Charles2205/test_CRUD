@@ -6,7 +6,7 @@ const ejs = require('ejs')
 const dbConnect = require('./dbConnect')
 const dbModel = require('./users')
 app.use(express.urlencoded({extended:false}))
-
+app.use(express.static(__dirname+'/js'))
 app.set('view engine','ejs')
 app.set('views',__dirname+'/views')
 app.get('/',async(req,res)=>{
@@ -14,6 +14,13 @@ app.get('/',async(req,res)=>{
     const records =users.map((v)=>{return v.dataValues})
     res.render('index',{records})
 })
+
+
+
+// app.get('/snackbar.min.js', (req, res) => {
+//     res.set('Content-Type', 'application/javascript');
+//     res.sendFile(__dirname + '/snackbar.min.js');
+//   });
 app.post('/register',async(req,res)=>{
     const {first_name,last_name,age}= req.body
     await dbModel.create({first_name,last_name,age})
