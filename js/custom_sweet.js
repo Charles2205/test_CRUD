@@ -8,7 +8,7 @@ btnSave.addEventListener('click',()=>{
     })
 })
 
-function showToast(){
+function showToast(status,message){
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -22,7 +22,7 @@ function showToast(){
       })
       
       Toast.fire({
-        icon: 'error',
-        title: 'Missing Fields'
+        icon: status,
+        title: message
       })      
 }
