@@ -29,6 +29,17 @@ app.post('/register',async(req,res)=>{
         console.log(error);
     }
 })
+
+app.patch('/update',async(req,res)=>{
+    try {
+        const {id,first_name,last_name,age}= req.body()
+        await dbModel.update({first_name,last_name,age},{
+            where:{id}
+        })
+    } catch (error) {
+        console.log(error);
+    }
+})
 const startServer=async()=>{
     await dbConnect.authenticate()
     try {

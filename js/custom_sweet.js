@@ -33,7 +33,21 @@ btnSave.addEventListener ("click",async(e)=>{
   
 })
 
-
+const btnEdits = document.querySelectorAll('.btnEdit')
+btnEdits.forEach((btnEdit)=>{
+  // console.log(btnEdit.parentNode.parentNode.parentNode);
+    btnEdit.addEventListener('click', (e)=>{
+      const tr = e.srcElement.parentNode.parentNode.parentNode;
+      // const a = document.querySelector(tr);
+      console.log(tr.children[1]);
+      const tds = tr.children;
+      for (let i = 0; i < tds.length; i++) {
+          console.log(tds[i].textContent);
+          
+      }
+    
+    })
+})
 
 function showToast(status,msg){
     const Toast = Swal.mixin({
