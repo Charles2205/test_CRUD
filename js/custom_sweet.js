@@ -40,11 +40,23 @@ btnEdits.forEach((btnEdit)=>{
       const tr = e.srcElement.parentNode.parentNode.parentNode;
       // const a = document.querySelector(tr);
       console.log(tr.children[1]);
+
+      // create variables
+
       const tds = tr.children;
-      for (let i = 0; i < tds.length; i++) {
-          console.log(tds[i].textContent);
-          
-      }
+      const first_name = tds[1].textContent;
+      const last_name = tds[2].textContent;
+      const age = tds[3].textContent;
+
+      // access individual inputs in the modal
+      document.querySelector('#first_name').value = first_name
+      document.querySelector('#last_name').value = last_name
+      document.querySelector('#age').value = age
+      // set the values 
+      
+
+      // show modal
+      document.querySelector('#exampleModal').className = 'modal fade show'
     
     })
 })
