@@ -29,14 +29,16 @@ btnSave.addEventListener ("click",async(e)=>{
     .catch(error => {
       console.error('Error:', error);
     });
-   }  
-  
+   } 
+   const edit  = await axios.patch('/update',)  
 })
 
 const btnEdits = document.querySelectorAll('.btnEdit')
 btnEdits.forEach((btnEdit)=>{
   // console.log(btnEdit.parentNode.parentNode.parentNode);
     btnEdit.addEventListener('click', (e)=>{
+      // const record = e.srcElement
+      // console.log(record);
       const tr = e.srcElement.parentNode.parentNode.parentNode;
       // const a = document.querySelector(tr);
       console.log(tr.children[1]);
@@ -52,6 +54,8 @@ btnEdits.forEach((btnEdit)=>{
       document.querySelector('#first_name').value = first_name
       document.querySelector('#last_name').value = last_name
       document.querySelector('#age').value = age
+      const a = document.querySelector('#modal-title')
+      console.log(a);
       // set the values 
       
 
