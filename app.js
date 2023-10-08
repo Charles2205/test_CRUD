@@ -1,7 +1,7 @@
 const  express = require('express')
 require('dotenv').config()
 const app = express()
-const port = process.env.port || 7402
+const port = process.env.port || 1412
 const ejs = require('ejs')
 const dbConnect = require('./dbConnect')
 const dbModel = require('./users')
@@ -32,7 +32,7 @@ app.post('/register',async(req,res)=>{
 
 app.patch('/update',async(req,res)=>{
     try {
-        const {id,first_name,last_name,age}= req.body()
+        const {id,first_name,last_name,age}= req.body
         await dbModel.update({first_name,last_name,age},{
             where:{id}
         })
