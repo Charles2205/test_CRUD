@@ -22,6 +22,7 @@ app.get('/',async(req,res)=>{
 
 app.post('/register',async(req,res)=>{
     try {
+        
         const {first_name,last_name,age}= req.body
     await dbModel.create({first_name,last_name,age})
     res.redirect('/')
