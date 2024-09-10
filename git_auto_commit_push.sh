@@ -18,19 +18,22 @@ end_sec=$(date -d "$END_DATE" +%s)
 
 # Loop over each day from start to end date
 for (( sec=start_sec; sec<=end_sec; sec+=86400 )); do
-    # Convert seconds back to date in the required format
+    # Convert seconds back to date
     current_date=$(date -d "@$sec" +%Y-%m-%d)
 
-    # Create or modify a file to ensure there's something to commit
-    echo "Auto commit for $current_date" >> "$REPO_PATH/daily_log.txt"
+    # Create or modify a file to ensure there's something new to commit each day
+    echo "Auto commit for $current_date" > "$REPO_PATH/daily_log_$current_date.txt"
 
-    # Set commit date to the current_date for backdating
-    GIT_AUTHOR_DATE="$current_date 12:00:00" GIT_COMMITTER_DATE="$current_date 12:00:00" git commit -am "Auto commit on $current_date"
+    # Stage all changes
+    git add .
+
+    # Commit with the specific date using environment variables for backdating
+    GIT_AUTHOR_DATE="$current_date 12:00:00" GIT_COMMITTER_DATE="$current_date 12:00:00" git commit -m "Auto commit on $current_date"
 
     # Push changes to the GitHub repository
     git push "$REMOTE_URL" main
 
-    # Pause for a second to prevent any race conditions with git push
+    # Pause briefly to prevent any issues with git push
     sleep 1
 done
 
