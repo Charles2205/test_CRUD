@@ -7,27 +7,30 @@ cd "C:\Users\charles\Documents\test_CRUD" || exit
 START_DATE="2024-09-11"
 END_DATE="2024-10-09"
 
-# Function to get a random date within the range
-random_date() {
-  start=$(date -d "$START_DATE" +%s)
-  end=$(date -d "$END_DATE" +%s)
-  random=$((start + RANDOM % (end - start)))
-  date -d "@$random" +"%Y-%m-%dT%H:%M:%S"
-}
+# Convert the start and end dates to seconds since epoch
+current_date=$(date -d "$START_DATE" +%s)
+end_date=$(date -d "$END_DATE" +%s)
 
-# Check if there are any changes to commit
-if [[ -n $(git status --porcelain) ]]; then
-  # Stage all changes
-  git add .
+# Loop through each day in the date range
+while [[ $current_date -le $end_date ]]; do
+  # Format the current date for the commit
+  COMMIT_DATE=$(date -d "@$current_date" +"%Y-%m-%dT%H:%M:%S")
 
-  # Commit changes with a random date in the specified range
-  COMMIT_DATE=$(random_date)
-  GIT_COMMITTER_DATE="$COMMIT_DATE" git commit -m "${1:-'Auto commit'}" --date "$COMMIT_DATE"
+  # Check if there are any changes to commit
+  if [[ -n $(git status --porcelain) ]]; then
+    # Stage all changes
+    git add .
 
-  # Push to the main branch on GitHub
-  git push origin main
-  echo "Changes have been committed and pushed to GitHub with date $COMMIT_DATE."
+    # Commit changes with the current date
+    GIT_COMMITTER_DATE="$COMMIT_DATE" git commit -m "${1:-'Auto commit on $COMMIT_DATE'}" --date "$COMMIT_DATE"
 
-else
-  echo "No changes to commit."
-fi
+    # Push to the main branch on GitHub
+    git push origin main
+    echo "Changes committed and pushed to GitHub with date $COMMIT_DATE."
+  else
+    echo "No changes to commit on $COMMIT_DATE."
+  fi
+
+  # Move to the next day
+  current_date=$((current_date + 86400)) # Add 86400 seconds (1 day)
+done
