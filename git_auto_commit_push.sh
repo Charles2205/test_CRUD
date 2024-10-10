@@ -34,7 +34,7 @@ for (( sec=start_sec; sec<=end_sec; sec+=86400 )); do
     git push "$REMOTE_URL" main
 
     # Pause briefly to prevent any issues with git push
-    sleep 1
+    sleep
 done
 
 echo "All commits from $START_DATE to $END_DATE have been backdated and pushed."
